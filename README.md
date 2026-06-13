@@ -224,11 +224,23 @@ How it works:
   flagging which candidates are already `in_corpus`. Fetched texts cache under
   `discovery/cache/` (git-ignored) so threshold sweeps don't re-hit the network.
 
-This is **recall-oriented triage, not a classifier** — expect false positives,
-and review the high-scoring candidates by hand before encoding them as benefits.
-The workflow: run discovery → review `candidates.json` → add a worthwhile law to
-`benefits.yaml` → `python -m ingest.cli --all` to ground it → it flows into
-`/api/match` and `/api/ask` automatically.
+Keyword scoring is recall-oriented and noisy on big statutes (codes, tax laws
+trip many signals). To separate genuine individual-benefit laws from those, an
+optional **LLM classifier** ([discovery/classify.py](discovery/classify.py))
+runs Claude (`claude-opus-4-8`) over each candidate's text and returns a
+structured judgement — *does this grant a benefit to an individual? what, for
+whom, how confident* — via `messages.parse`. Env-gated on `ANTHROPIC_API_KEY`:
+
+```bash
+python -m discovery.classify --min-score 8 --only-benefits
+```
+
+The workflow: run discovery → (optionally) classify → review → add a worthwhile
+law to `benefits.yaml` → `python -m ingest.cli --all` to ground it → it flows
+into `/api/match` and `/api/ask` automatically. The first batch surfaced this
+way (Seafarers Magna Carta, Magna Carta of the Poor, Free Legal Assistance,
+Foster Care, workplace lactation periods, PWD reserved positions) is already in
+the corpus.
 
 ## Adding a benefit
 
@@ -263,7 +275,7 @@ api/
 ingest/              law-text ingestion pipeline (corpus-driven grounding)
   sources.py · registry.py · fetcher.py · parser.py · pipeline.py · cli.py
 discovery/           benefit-discovery pipeline (finds new candidate laws)
-  sources.py · scorer.py · pipeline.py · cli.py
+  sources.py · scorer.py · pipeline.py · cli.py · classify.py (LLM triage)
 src/app/             Next.js frontend (App Router)
   page.tsx           the form + results UI (client component)
   layout.tsx · globals.css

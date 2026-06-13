@@ -817,3 +817,188 @@
     - Use the voucher to enrol at a participating SHS
   where_to_apply: "DepEd / PEAC (Private Education Assistance Committee)"
   lesser_known: true
+
+# -----------------------------------------------------------------------------
+# Benefits surfaced by the discovery pipeline (discovery/) and encoded from the
+# ingested statute text. Authors not yet attributed.
+# -----------------------------------------------------------------------------
+
+- id: seafarer-magna-carta
+  name: Magna Carta of Filipino Seafarers
+  short_name: Seafarers Magna Carta
+  category: employment
+  description: >
+    A consolidated charter of rights and protections for Filipino seafarers,
+    covering fair employment terms, wage protection, repatriation at the
+    employer's cost, maintenance and medical care while abroad, and access to
+    welfare and grievance mechanisms.
+  benefit_value: >
+    Guaranteed repatriation, maintenance and medical care, wage and contract
+    protections, and welfare support for sea-based workers.
+  legal_basis:
+    law: RA 12021
+    title: Magna Carta of Filipino Seafarers
+    year: 2024
+    effective_date: "2024"
+    status: in_force
+    source_url: "https://lawphil.net/statutes/repacts/ra2024/ra_12021_2024.html"
+    last_verified: "2026-06-14"
+  eligibility:
+    occupations: [seafarer]
+  requirements:
+    - Employment as a Filipino seafarer on an ocean-going vessel
+    - A valid POEA/DMW-approved employment contract
+  how_to_claim:
+    - Assert the rights through your manning agency/employer
+    - Escalate unmet entitlements to the Department of Migrant Workers (DMW) / OWWA
+  where_to_apply: "Department of Migrant Workers (DMW) / OWWA"
+  lesser_known: true
+  notes: "Surfaced via the discovery pipeline; brand-new (2024) and not widely known yet."
+
+- id: magna-carta-of-the-poor
+  name: Magna Carta of the Poor
+  short_name: Magna Carta of the Poor
+  category: social_welfare
+  description: >
+    Establishes enforceable rights of the poor to adequate food, decent work,
+    relevant and quality education, adequate housing, and the highest attainable
+    standard of health, and directs agencies to deliver programs toward them.
+  benefit_value: >
+    Recognised rights to food, decent work, education, housing and health, with
+    corresponding government programs for individuals/families below the poverty
+    threshold.
+  legal_basis:
+    law: RA 11291
+    title: Magna Carta of the Poor
+    year: 2019
+    effective_date: "2019"
+    status: in_force
+    source_url: "https://lawphil.net/statutes/repacts/ra2019/ra_11291_2019.html"
+    last_verified: "2026-06-14"
+  eligibility:
+    required_flags: [indigent]
+  requirements:
+    - Income below the poverty threshold (per NEDA/PSA), or unable to meet basic needs
+  how_to_claim:
+    - Access the relevant agency programs (DSWD, DA, DOH, DepEd, housing agencies)
+    - Coordinate through your LGU / DSWD for inclusion in poverty-targeted programs
+  where_to_apply: "DSWD and concerned agencies via your LGU"
+  lesser_known: true
+  notes: "A framework rights law — benefits are delivered through agency programs."
+
+- id: free-legal-assistance
+  name: Free Legal Assistance for Indigents
+  short_name: Free Legal Assistance
+  category: social_welfare
+  description: >
+    Indigent litigants are entitled to free legal services; the law also gives
+    lawyers a tax incentive for rendering pro bono work, expanding the supply of
+    free representation beyond the Public Attorney's Office.
+  benefit_value: "Free legal representation and services for indigent litigants."
+  legal_basis:
+    law: RA 9999
+    title: Free Legal Assistance Act of 2010
+    year: 2010
+    effective_date: "2010"
+    status: in_force
+    source_url: "https://lawphil.net/statutes/repacts/ra2010/ra_9999_2010.html"
+    last_verified: "2026-06-14"
+  eligibility:
+    required_flags: [indigent]
+  requirements:
+    - Indigency (income/asset limits as assessed by the PAO or accredited provider)
+  how_to_claim:
+    - Approach the Public Attorney's Office (PAO) or an accredited legal aid provider / IBP chapter
+  where_to_apply: "Public Attorney's Office (PAO) / IBP legal aid"
+  lesser_known: true
+
+- id: foster-care-benefits
+  name: Foster Care Support for Foster Parents
+  short_name: Foster Care
+  category: social_welfare
+  description: >
+    Licensed foster parents receive support for the care of a foster child —
+    including a monthly foster-care subsidy for qualified placements, an
+    additional dependent tax exemption, and priority access to social programs.
+  benefit_value: >
+    Monthly foster-care subsidy (for qualified placements) + additional tax
+    exemption for the foster child + priority in social services.
+  legal_basis:
+    law: RA 10165
+    title: Foster Care Act of 2012
+    year: 2012
+    effective_date: "2012"
+    status: in_force
+    source_url: "https://lawphil.net/statutes/repacts/ra2012/ra_10165_2012.html"
+    last_verified: "2026-06-14"
+  eligibility:
+    required_flags: [foster_parent]
+  requirements:
+    - A Foster Family Care License and a foster placement authority from DSWD
+  how_to_claim:
+    - Apply to be a licensed foster parent through the DSWD or an accredited child-placing agency
+    - Claim the subsidy / tax exemption for the placed foster child
+  where_to_apply: "DSWD / accredited child-placing agency"
+  lesser_known: true
+
+- id: lactation-breaks
+  name: Paid Lactation Periods and Workplace Lactation Stations
+  short_name: Breastfeeding (Workplace)
+  category: employment
+  description: >
+    Working mothers are entitled to paid lactation breaks in addition to regular
+    breaks, and employers must provide lactation stations, so nursing mothers can
+    express milk during work hours.
+  benefit_value: >
+    Compensable lactation periods (in addition to regular breaks) plus a
+    workplace lactation station.
+  legal_basis:
+    law: RA 10028
+    title: Expanded Breastfeeding Promotion Act of 2009
+    year: 2010
+    citation: "amends RA 7600"
+    effective_date: "2010"
+    status: in_force
+    amends: "RA 7600"
+    source_url: "https://lawphil.net/statutes/repacts/ra2010/ra_10028_2010.html"
+    last_verified: "2026-06-14"
+  eligibility:
+    gender: female
+    employment_statuses: [employed]
+    any_flags: [pregnant]
+  requirements:
+    - A nursing/lactating employee in a public or private workplace
+  how_to_claim:
+    - Request lactation periods and use the employer-provided lactation station
+    - Raise non-compliance with your employer/HR or the DOLE
+  where_to_apply: "Your employer / HR (enforced by DOLE)"
+  lesser_known: true
+  notes: "Lactation periods are compensable and on top of regular meal/rest breaks."
+
+- id: pwd-reserved-positions
+  name: Reserved Government Positions for Persons with Disability
+  short_name: PWD Reserved Positions
+  category: employment
+  description: >
+    At least one percent (1%) of all positions in government agencies, offices
+    and corporations is reserved for persons with disability, and private
+    employers who hire PWDs receive incentives.
+  benefit_value: "≥1% of government positions reserved for PWDs; hiring incentives for private employers."
+  legal_basis:
+    law: RA 10524
+    title: Act Expanding the Positions Reserved for Persons with Disability
+    year: 2013
+    citation: "amends RA 7277 (Magna Carta for PWD)"
+    effective_date: "2013"
+    status: in_force
+    amends: "RA 7277"
+    source_url: "https://lawphil.net/statutes/repacts/ra2013/ra_10524_2013.html"
+    last_verified: "2026-06-14"
+  eligibility:
+    required_flags: [pwd]
+  requirements:
+    - PWD ID; qualifications for the specific government position applied for
+  how_to_claim:
+    - Apply to government agency vacancies; the 1% reservation applies to filling positions
+  where_to_apply: "Government agencies / Civil Service Commission"
+  lesser_known: true

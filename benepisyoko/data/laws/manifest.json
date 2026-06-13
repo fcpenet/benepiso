@@ -1,4 +1,28 @@
 {
+  "RA-10028-2010": {
+    "law": "RA 10028",
+    "title": "Expanded Breastfeeding Promotion Act of 2009",
+    "year": 2010,
+    "slug": "RA-10028-2010",
+    "url": "https://lawphil.net/statutes/repacts/ra2010/ra_10028_2010.html",
+    "status": "ok",
+    "fetched_at": "2026-06-13T18:43:36+00:00",
+    "char_count": 22824,
+    "sha256": "07a8d4e5106376acd10475ad5232d10988cf56f01481799d3b4320e9179eb2d8",
+    "text_file": "RA-10028-2010.txt"
+  },
+  "RA-10165-2012": {
+    "law": "RA 10165",
+    "title": "Foster Care Act of 2012",
+    "year": 2012,
+    "slug": "RA-10165-2012",
+    "url": "https://lawphil.net/statutes/repacts/ra2012/ra_10165_2012.html",
+    "status": "ok",
+    "fetched_at": "2026-06-13T18:43:38+00:00",
+    "char_count": 21894,
+    "sha256": "edb47fab46999fe7231d26eb723992616f02cc3b6ad61f55e2aae5a8bf28e511",
+    "text_file": "RA-10165-2012.txt"
+  },
   "RA-10361-2013": {
     "law": "RA 10361",
     "title": "Domestic Workers Act (Batas Kasambahay)",
@@ -10,6 +34,18 @@
     "char_count": 26071,
     "sha256": "739b1a71cd823a5a28d6313ca44ab582a2c8a2c9d128d545911e13f00f5563c3",
     "text_file": "RA-10361-2013.txt"
+  },
+  "RA-10524-2013": {
+    "law": "RA 10524",
+    "title": "Act Expanding the Positions Reserved for Persons with Disability",
+    "year": 2013,
+    "slug": "RA-10524-2013",
+    "url": "https://lawphil.net/statutes/repacts/ra2013/ra_10524_2013.html",
+    "status": "ok",
+    "fetched_at": "2026-06-13T18:43:40+00:00",
+    "char_count": 3155,
+    "sha256": "7eea59523be9725d910bce782255217f17b45b0d198f3448600821e673cd9652",
+    "text_file": "RA-10524-2013.txt"
   },
   "RA-10533-2013": {
     "law": "RA 10533",
@@ -143,6 +179,18 @@
     "sha256": "9cc5491e89fd9085665332092013bacf2f677d9503fe1fa3d85c5f814683a9e9",
     "text_file": "RA-11261-2019.txt"
   },
+  "RA-11291-2019": {
+    "law": "RA 11291",
+    "title": "Magna Carta of the Poor",
+    "year": 2019,
+    "slug": "RA-11291-2019",
+    "url": "https://lawphil.net/statutes/repacts/ra2019/ra_11291_2019.html",
+    "status": "ok",
+    "fetched_at": "2026-06-13T18:43:42+00:00",
+    "char_count": 19131,
+    "sha256": "50ff5b1685495b8f5a6ead2b063c66015b34c796bd25bc63d336cfda1ed4baec",
+    "text_file": "RA-11291-2019.txt"
+  },
   "RA-11310-2019": {
     "law": "RA 11310",
     "title": "Pantawid Pamilyang Pilipino Program (4Ps) Act",
@@ -238,6 +286,18 @@
     "char_count": 3403,
     "sha256": "9d6c52fea54ed8f2c54dad27603d89b8d3c4abcb8891472f2ebe504750c6124a",
     "text_file": "RA-11982-2024.txt"
+  },
+  "RA-12021-2024": {
+    "law": "RA 12021",
+    "title": "Magna Carta of Filipino Seafarers",
+    "year": 2024,
+    "slug": "RA-12021-2024",
+    "url": "https://lawphil.net/statutes/repacts/ra2024/ra_12021_2024.html",
+    "status": "ok",
+    "fetched_at": "2026-06-13T18:43:44+00:00",
+    "char_count": 100857,
+    "sha256": "387b2a959a1487a1186e40ca397960cc2b6a29a7b0b51e65d7cbf1527cac7723",
+    "text_file": "RA-12021-2024.txt"
   },
   "RA-12078-2024": {
     "law": "RA 12078",
@@ -358,5 +418,17 @@
     "char_count": 86922,
     "sha256": "142487d643d6409e2da9bca33ef3952c69c23b6f92ac8c826ba1f2b13b86680b",
     "text_file": "RA-9994-2010.txt"
+  },
+  "RA-9999-2010": {
+    "law": "RA 9999",
+    "title": "Free Legal Assistance Act of 2010",
+    "year": 2010,
+    "slug": "RA-9999-2010",
+    "url": "https://lawphil.net/statutes/repacts/ra2010/ra_9999_2010.html",
+    "status": "ok",
+    "fetched_at": "2026-06-13T18:43:34+00:00",
+    "char_count": 6312,
+    "sha256": "4fdcef00fdde3973a96bf66b4dfbc5d0fb8723dda106200bc4c86ef3fa765098",
+    "text_file": "RA-9999-2010.txt"
   }
 }

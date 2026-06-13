@@ -41,6 +41,7 @@ KNOWN_FLAGS: dict[str, str] = {
     "has_children": "Has dependent children.",
     "low_consumption_household": "Household consuming a small amount of electricity per month.",
     "agrarian_reform_beneficiary": "Awarded land under the Comprehensive Agrarian Reform Program.",
+    "foster_parent": "Licensed foster parent caring for a foster child.",
 }
 
 # Vocabulary of "line of work" / sector. Unlike employment_status (which says

@@ -40,3 +40,10 @@ def test_structural_law_scores_low():
 
 def test_empty_text_scores_zero_or_less():
     assert score_law("AN ACT", "").score <= 0
+
+
+def test_classifier_returns_none_without_api_key(monkeypatch):
+    from discovery.classify import classify_law
+
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    assert classify_law("AN ACT GRANTING BENEFITS", "Section 1. ...") is None

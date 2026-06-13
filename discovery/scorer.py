@@ -73,8 +73,16 @@ _NEGATIVE_TITLE = [
     (r"(?:establishing|integrating|separating).{0,70}"
      r"(?:state university|state college|polytechnic|community college|"
      r"science high school)", "educational charter"),
-    (r"creating the .{0,60}(?:authority|commission|office|council|institute|"
-     r"bureau|administration)\b", "agency-creation"),
+    # LGU creation/division (provinces, cities, municipalities, districts) —
+    # these carry official scholarships/pensions boilerplate but grant no
+    # individual benefit.
+    (r"creat\w+ .{0,40}(?:province|cit(?:y|ies)|municipalit|barangay|"
+     r"(?:legislative|congressional) district)", "LGU-creation"),
+    (r"\bcreat\w+ the .{0,60}(?:authority|commission|office|council|institute|"
+     r"bureau|administration|university|college)\b", "agency/charter-creation"),
+    # University charters ("strengthen the University of …", UP charter, etc.)
+    (r"strengthen\w*\b.{0,40}(?:university|college)", "university charter"),
+    (r"university of the philippines", "UP charter"),
     (r"general appropriations|appropriating funds for the operation", "appropriations"),
     (r"\bcharter of\b", "charter"),
     (r"increasing the (?:bed|student|enrollment) capacity", "capacity"),
