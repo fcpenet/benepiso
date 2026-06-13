@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.DS_Store
+*.egg-info/
+.env
+
+# Node / Next.js
+node_modules/
+.next/
+next-env.d.ts
+.vercel
+npm-debug.log*

@@ -1,0 +1,790 @@
+# Benepisyoko benefits corpus
+# -----------------------------------------------------------------------------
+# Each entry is one Philippine benefit/entitlement keyed to the law that grants
+# it. The corpus deliberately favours LESSER-KNOWN benefits people often miss.
+#
+# IMPORTANT: This is a simplified, human-curated dataset for discovery. Amounts,
+# ceilings and procedures change over time and via implementing rules — always
+# verify against the cited law and the responsible agency. Not legal advice.
+#
+# Flag vocabulary is documented in app/models.py (KNOWN_FLAGS) and GET /flags.
+# -----------------------------------------------------------------------------
+
+- id: senior-citizen-discount
+  name: Senior Citizen 20% Discount and VAT Exemption
+  short_name: Senior Discount
+  category: social_welfare
+  description: >
+    Persons aged 60 and above receive a 20% discount and VAT exemption on
+    medicines, medical services, transport fares, restaurants, recreation and
+    other covered goods and services.
+  benefit_value: "20% discount + 12% VAT exemption on covered purchases."
+  legal_basis:
+    law: RA 9994
+    title: Expanded Senior Citizens Act of 2010
+    year: 2010
+    citation: "Sec. 4"
+  eligibility:
+    min_age: 60
+  requirements:
+    - Senior Citizen ID issued by the OSCA of your city/municipality
+    - Valid government ID showing date of birth (to obtain the ID)
+  how_to_claim:
+    - Register with the Office for Senior Citizens Affairs (OSCA) at your city/municipal hall
+    - Present the Senior Citizen ID (or OSCA booklet) at the point of purchase
+  where_to_apply: "Office for Senior Citizens Affairs (OSCA)"
+  lesser_known: false
+
+- id: senior-social-pension
+  name: Social Pension for Indigent Senior Citizens
+  short_name: Senior Social Pension
+  category: social_welfare
+  description: >
+    A monthly stipend for indigent senior citizens who have no pension and no
+    regular source of income. The monthly amount was increased to ₱1,000 in 2022.
+  benefit_value: "₱1,000 monthly stipend (paid quarterly/semi-annually)."
+  legal_basis:
+    law: RA 11916
+    title: Act Increasing the Social Pension of Indigent Senior Citizens
+    year: 2022
+    citation: "amends RA 7432; social pension originally under RA 9994 Sec. 5"
+    effective_date: "2022-08"
+    status: in_force
+    amends: "RA 7432"
+    amendments:
+      - law: RA 11916
+        year: 2022
+        summary: "Raised the monthly stipend from ₱500 to ₱1,000."
+        effective_date: "2024-01"
+    source_url: "https://lawphil.net/statutes/repacts/ra2022/ra_11916_2022.html"
+    last_verified: "2026-06-13"
+  eligibility:
+    min_age: 60
+    required_flags: [indigent]
+  requirements:
+    - Senior Citizen ID
+    - Proof of indigency / no regular income (validated by DSWD)
+  how_to_claim:
+    - Apply through your OSCA or barangay; DSWD validates indigency status
+    - Receive the stipend through the designated payout (cash card or pay-out schedule)
+  where_to_apply: "DSWD via OSCA / barangay"
+  lesser_known: true
+  notes: "Many eligible seniors never enrol; the amount doubled to ₱1,000 under RA 11916, effective January 2024."
+
+- id: pwd-discount
+  name: PWD 20% Discount and VAT Exemption
+  short_name: PWD Discount
+  category: social_welfare
+  description: >
+    Persons with disability receive a 20% discount and VAT exemption on
+    medicines, medical and dental services, transport, restaurants and more.
+  benefit_value: "20% discount + 12% VAT exemption on covered purchases."
+  legal_basis:
+    law: RA 10754
+    title: Act Expanding the Benefits and Privileges of Persons With Disability (amending RA 7277/9442)
+    year: 2016
+  eligibility:
+    required_flags: [pwd]
+  requirements:
+    - PWD ID issued by the city/municipal Persons with Disability Affairs Office (PDAO)
+    - Medical certificate of disability (to obtain the ID)
+  how_to_claim:
+    - Secure a PWD ID from your PDAO or City/Municipal Health Office
+    - Present the PWD ID and purchase booklet at the point of purchase
+  where_to_apply: "Persons with Disability Affairs Office (PDAO)"
+  lesser_known: false
+
+- id: solo-parent-benefits
+  name: Solo Parent Benefits and Cash Subsidy
+  short_name: Solo Parent
+  category: social_welfare
+  description: >
+    Solo parents are entitled to a 10% discount and VAT exemption on baby
+    necessities and medicines for children up to age 6, an additional 7 days of
+    parental leave per year, flexible work, and — for low-income solo parents —
+    a monthly cash subsidy.
+  benefit_value: >
+    7-day solo parent leave + 10% discount/VAT exemption on baby needs (child ≤6)
+    + ₱1,000/month cash subsidy for solo parents earning minimum wage or below.
+  legal_basis:
+    law: RA 11861
+    title: Expanded Solo Parents Welfare Act
+    year: 2022
+    citation: "amends RA 8972 (2000); discount/VAT-exemption applies to solo parents earning ≤₱250,000/year"
+    effective_date: "2022-11-01"
+    status: in_force
+    amends: "RA 8972"
+    source_url: "https://lawphil.net/statutes/repacts/ra2022/ra_11861_2022.html"
+    last_verified: "2026-06-13"
+  eligibility:
+    required_flags: [solo_parent]
+  requirements:
+    - Solo Parent ID from the DSWD / city social welfare office
+    - Barangay certification and documents proving solo parent status
+  how_to_claim:
+    - Apply for a Solo Parent ID at your City/Municipal Social Welfare and Development Office (C/MSWDO)
+    - Present the ID to employers (for leave) and establishments (for discounts)
+    - Low-income solo parents apply for the cash subsidy through the C/MSWDO
+  where_to_apply: "City/Municipal Social Welfare and Development Office (C/MSWDO)"
+  lesser_known: true
+  notes: "The ₱1,000 monthly cash subsidy and the 10% discount are widely overlooked."
+
+- id: magna-carta-women-special-leave
+  name: Special Leave Benefit for Women (Gynecological Surgery)
+  short_name: Magna Carta Women Leave
+  category: employment
+  description: >
+    A female employee who undergoes surgery for a gynecological disorder is
+    entitled to up to two (2) months of special leave with full pay, on top of
+    other leaves, after at least 6 months of aggregate service in the last year.
+  benefit_value: "Up to 2 months special leave with full pay."
+  legal_basis:
+    law: RA 9710
+    title: The Magna Carta of Women
+    year: 2009
+    citation: "Sec. 18 (Special Leave Benefits for Women)"
+    effective_date: "2009-08"
+    status: in_force
+    source_url: "https://pcw.gov.ph/faq-availment-of-special-leave-benefit/"
+    last_verified: "2026-06-13"
+  eligibility:
+    gender: female
+    employment_statuses: [employed]
+  requirements:
+    - Medical certificate recommending gynecological surgery
+    - At least 6 months aggregate service within the 12 months prior to surgery
+  how_to_claim:
+    - File the special leave application with your employer/HR with the medical certificate
+    - Employer pays the full salary for the approved leave period
+  where_to_apply: "Your employer / HR (private and public sector)"
+  lesser_known: true
+  notes: "One of the most overlooked entitlements for working women."
+
+- id: expanded-maternity-leave
+  name: 105-Day Expanded Maternity Leave
+  short_name: Maternity Leave
+  category: employment
+  description: >
+    Female workers receive 105 days of paid maternity leave for live childbirth
+    (extendable by 30 days unpaid), 60 days for miscarriage/emergency
+    termination, plus an extra 15 days for solo parents. Up to 7 days may be
+    transferred to the child's father or an alternate caregiver.
+  benefit_value: "105 days paid leave (+15 if solo parent); 7 transferable days."
+  legal_basis:
+    law: RA 11210
+    title: 105-Day Expanded Maternity Leave Law
+    year: 2019
+  eligibility:
+    gender: female
+    any_flags: [pregnant]
+    employment_statuses: [employed, self_employed, ofw, unemployed]
+  requirements:
+    - At least 3 monthly SSS contributions in the 12 months before childbirth (private sector)
+    - Maternity notification filed with SSS (through employer, if employed)
+    - Medical/birth documents
+  how_to_claim:
+    - File the SSS maternity notification as early in the pregnancy as possible
+    - After childbirth, the employer advances the benefit and is reimbursed by SSS (private sector); voluntary/self-employed members claim directly from SSS
+  where_to_apply: "SSS (private sector / voluntary) or GSIS (government)"
+  lesser_known: false
+
+- id: paternity-leave
+  name: Paternity Leave
+  short_name: Paternity Leave
+  category: employment
+  description: >
+    Married male employees may take 7 days of paid paternity leave for the first
+    four deliveries of their legitimate spouse with whom they are cohabiting.
+  benefit_value: "7 days paid leave per delivery (first 4 deliveries)."
+  legal_basis:
+    law: RA 8187
+    title: Paternity Leave Act of 1996
+    year: 1996
+  eligibility:
+    gender: male
+    employment_statuses: [employed]
+    required_flags: [married, new_father]
+  requirements:
+    - Marriage certificate
+    - Proof of delivery and cohabitation with spouse
+  how_to_claim:
+    - Notify your employer of the pregnancy and expected delivery date
+    - File the paternity leave application with HR
+  where_to_apply: "Your employer / HR"
+  lesser_known: false
+
+- id: sss-unemployment-benefit
+  name: SSS Unemployment / Involuntary Separation Benefit
+  short_name: SSS Unemployment
+  category: employment
+  description: >
+    SSS members who lose their job involuntarily (retrenchment, closure,
+    redundancy, etc.) can receive a cash benefit equal to half of their average
+    monthly salary credit for up to two months.
+  benefit_value: "Up to 2 months of cash equal to 50% of average monthly salary credit."
+  legal_basis:
+    law: RA 11199
+    title: Social Security Act of 2018
+    year: 2019
+    citation: "Sec. 14-B; titled 'of 2018' but approved 7 Feb 2019"
+    effective_date: "2019-03"
+    status: in_force
+    amends: "RA 8282"
+    source_url: "https://www.officialgazette.gov.ph/2019/02/07/republic-act-no-11199/"
+    last_verified: "2026-06-13"
+  eligibility:
+    max_age: 60
+    employment_statuses: [unemployed]
+    required_flags: [sss_member, involuntary_separation]
+  requirements:
+    - At least 36 monthly SSS contributions, 12 of them in the 18 months before separation
+    - No unemployment benefit settled in the 3 years prior to separation
+    - DOLE certificate of involuntary separation
+    - Not over 60 (50 for underground/surface mineworkers; 55 for racehorse jockeys)
+  how_to_claim:
+    - Obtain a certification of involuntary separation from DOLE
+    - File the unemployment benefit claim online via My.SSS or at an SSS branch within 1 year of separation
+  where_to_apply: "Social Security System (SSS)"
+  lesser_known: true
+  notes: "Very few members know SSS pays an unemployment benefit at all."
+
+- id: first-time-jobseeker-fee-exemption
+  name: First Time Jobseeker Fee Exemption
+  short_name: First-Time Jobseeker
+  category: employment
+  description: >
+    First-time jobseekers are exempt from fees and charges for documents
+    commonly required for employment, such as NBI clearance, police clearance,
+    barangay clearance, PSA birth certificate, and medical certificates from
+    public health offices.
+  benefit_value: "Free first issuance of common pre-employment government documents."
+  legal_basis:
+    law: RA 11261
+    title: First Time Jobseekers Assistance Act
+    year: 2019
+    citation: "Covers NBI/police/barangay clearances, PSA birth/marriage, TOR, TIN, PhilHealth ID, etc."
+    effective_date: "2019-04-10"
+    status: in_force
+    source_url: "https://www.officialgazette.gov.ph/2019/04/10/republic-act-no-11261/"
+    last_verified: "2026-06-13"
+  eligibility:
+    required_flags: [first_time_jobseeker]
+  requirements:
+    - Barangay certification that you are a first-time jobseeker and a resident for at least 6 months
+    - Benefit may be availed only once, one copy per document
+  how_to_claim:
+    - Get a first-time jobseeker certification (Oath of Undertaking) from your barangay
+    - Present it when applying for covered documents to waive the fees (one-time)
+  where_to_apply: "Barangay hall (certification), then the issuing agencies"
+  lesser_known: true
+  notes: "Saves new graduates the cost of NBI, police, and other clearances."
+
+- id: free-tertiary-education
+  name: Free Tuition in State Universities and Colleges
+  short_name: Free College (SUC)
+  category: education
+  description: >
+    Filipino students enrolled in State Universities and Colleges (SUCs), local
+    universities and colleges, and state-run technical-vocational institutions
+    are exempt from tuition and other school fees.
+  benefit_value: "Free tuition and miscellaneous fees in SUCs/LUCs and state TVIs."
+  legal_basis:
+    law: RA 10931
+    title: Universal Access to Quality Tertiary Education Act
+    year: 2017
+  eligibility:
+    required_flags: [student]
+  requirements:
+    - Admission/enrolment in an eligible SUC, LUC or state-run TVI
+  how_to_claim:
+    - Enrol in a qualified public institution; free tuition is applied automatically
+  where_to_apply: "Your state university/college (CHED-administered)"
+  lesser_known: false
+
+- id: tertiary-education-subsidy
+  name: Tertiary Education Subsidy (TES)
+  short_name: TES
+  category: education
+  description: >
+    A subsidy covering tuition, allowances for books, transport, and living
+    costs for students, prioritising those from poor households — and usable at
+    PRIVATE higher education institutions, not just public ones.
+  benefit_value: "Cash subsidy for tuition + allowances (priority to poor households)."
+  legal_basis:
+    law: RA 10931
+    title: Universal Access to Quality Tertiary Education Act
+    year: 2017
+    citation: "TES program"
+  eligibility:
+    required_flags: [student]
+    any_flags: [indigent, student]
+  requirements:
+    - Enrolment in any recognised public or private HEI
+    - Inclusion in the prioritised list (e.g. Listahanan / 4Ps households prioritised)
+  how_to_claim:
+    - Apply through the Unified Financial Assistance System for Tertiary Education (UniFAST) / your school's financial aid office
+  where_to_apply: "UniFAST (CHED) via your school"
+  lesser_known: true
+  notes: "Often overlooked because students assume only public-school enrollees qualify."
+
+- id: universal-philhealth-coverage
+  name: Automatic PhilHealth Membership (Universal Health Care)
+  short_name: PhilHealth (UHC)
+  category: health
+  description: >
+    Every Filipino is automatically a member of PhilHealth and entitled to the
+    National Health Insurance Program — including inpatient coverage and case
+    rates — without needing to have actively enrolled.
+  benefit_value: "Inpatient/outpatient case-rate coverage as a member."
+  legal_basis:
+    law: RA 11223
+    title: Universal Health Care Act
+    year: 2019
+  eligibility: {}
+  requirements:
+    - PhilHealth Identification Number (PIN) — issued automatically; can be retrieved
+  how_to_claim:
+    - Provide your PhilHealth number on admission; the hospital deducts coverage from your bill
+  where_to_apply: "PhilHealth / accredited hospitals"
+  lesser_known: false
+
+- id: philhealth-konsulta
+  name: PhilHealth Konsulta (Free Primary Care)
+  short_name: Konsulta
+  category: health
+  description: >
+    A free primary-care benefit package covering consultations, selected
+    laboratory tests, and certain medicines when you register with an accredited
+    Konsulta provider.
+  benefit_value: "Free consultations, selected lab tests and medicines."
+  legal_basis:
+    law: RA 11223
+    title: Universal Health Care Act
+    year: 2019
+    citation: "Konsulta package"
+  eligibility: {}
+  requirements:
+    - PhilHealth membership (automatic)
+    - Registration with an accredited Konsulta provider
+  how_to_claim:
+    - Register with a PhilHealth Konsulta provider (clinic/health center) near you
+    - Avail of covered consultations, tests and medicines for free
+  where_to_apply: "Accredited PhilHealth Konsulta provider"
+  lesser_known: true
+
+- id: malasakit-center
+  name: Malasakit Center Medical Assistance
+  short_name: Malasakit
+  category: health
+  description: >
+    One-stop centers in public hospitals that consolidate medical financial
+    assistance from DOH, PhilHealth, PCSO and DSWD so indigent and financially
+    incapacitated patients can reduce or zero out their hospital bills.
+  benefit_value: "Consolidated medical financial assistance to reduce hospital bills."
+  legal_basis:
+    law: RA 11463
+    title: Malasakit Centers Act of 2019
+    year: 2019
+  eligibility:
+    any_flags: [indigent]
+  requirements:
+    - Hospital bill / statement of account
+    - Valid ID; social case study from the medical social worker as needed
+  how_to_claim:
+    - Visit the Malasakit Center desk inside the public hospital
+    - Submit documents; the center coordinates DOH/PCSO/DSWD/PhilHealth assistance
+  where_to_apply: "Malasakit Center in DOH-run public hospitals"
+  lesser_known: true
+
+- id: lifeline-electricity-rate
+  name: Lifeline Rate for Low-Income Electricity Users
+  short_name: Lifeline Rate
+  category: financial
+  description: >
+    Marginalized, low-consumption households receive a subsidized (discounted)
+    electricity rate on their monthly bill.
+  benefit_value: "Subsidized electricity rate (discount on the bill)."
+  legal_basis:
+    law: RA 11552
+    title: Act Extending and Enhancing the Implementation of the Lifeline Rate
+    year: 2021
+    citation: "amends Sec. 73 of RA 9136 (EPIRA, 2001)"
+    effective_date: "2021-05-27"
+    status: in_force
+    amends: "RA 9136"
+    source_url: "https://www.officialgazette.gov.ph/2021/05/27/republic-act-no-11552/"
+    last_verified: "2026-06-13"
+  eligibility:
+    required_flags: [low_consumption_household]
+    any_flags: [indigent, low_consumption_household]
+  requirements:
+    - Household electricity consumption within the lifeline threshold set by your distribution utility
+    - Application/qualification with the local distribution utility (e.g. Meralco, electric cooperative)
+  how_to_claim:
+    - Apply for lifeline rate qualification with your electricity distribution utility
+  where_to_apply: "Your electricity distribution utility (e.g. Meralco, ECs)"
+  lesser_known: true
+
+- id: free-irrigation-service
+  name: Free Irrigation Service for Smallholder Farmers
+  short_name: Free Irrigation
+  category: agriculture
+  description: >
+    Farmers tilling up to 8 hectares are exempt from irrigation service fees from
+    the National Irrigation Administration, and past unpaid fees were condoned.
+  benefit_value: "No irrigation service fees for farms up to 8 hectares."
+  legal_basis:
+    law: RA 10969
+    title: Free Irrigation Service Act
+    year: 2018
+  eligibility:
+    occupations: [farmer, fisherfolk]
+  requirements:
+    - Landholding of 8 hectares or less served by an NIA system
+  how_to_claim:
+    - Coordinate with your local National Irrigation Administration office / irrigators' association
+  where_to_apply: "National Irrigation Administration (NIA)"
+  lesser_known: true
+
+- id: kasambahay-benefits
+  name: Domestic Worker (Kasambahay) Benefits
+  short_name: Batas Kasambahay
+  category: employment
+  description: >
+    Household workers are entitled to a written contract, minimum wage, weekly
+    rest day, 5 days annual service incentive leave, 13th month pay, and
+    mandatory SSS, PhilHealth and Pag-IBIG coverage paid by the employer (until
+    a wage threshold is reached).
+  benefit_value: "Minimum wage, rest day, 5-day SIL, 13th month, SSS/PhilHealth/Pag-IBIG."
+  legal_basis:
+    law: RA 10361
+    title: Domestic Workers Act (Batas Kasambahay)
+    year: 2013
+  eligibility:
+    occupations: [domestic_worker]
+    employment_statuses: [employed]
+  requirements:
+    - Employment as a domestic worker
+    - Registration with the barangay and enrolment in SSS/PhilHealth/Pag-IBIG by the employer
+  how_to_claim:
+    - Ensure your employer registers you and remits SSS/PhilHealth/Pag-IBIG contributions
+    - Raise unmet entitlements with the DOLE or barangay
+  where_to_apply: "Employer (registration) / DOLE for complaints"
+  lesser_known: true
+
+- id: pantawid-4ps
+  name: Pantawid Pamilyang Pilipino Program (4Ps)
+  short_name: 4Ps
+  category: social_welfare
+  description: >
+    A conditional cash transfer for the poorest households with children aged
+    0–18 or a pregnant member, conditioned on school attendance and regular
+    health check-ups.
+  benefit_value: "Monthly health and education cash grants per qualified household."
+  legal_basis:
+    law: RA 11310
+    title: Pantawid Pamilyang Pilipino Program (4Ps) Act
+    year: 2019
+  eligibility:
+    required_flags: [indigent]
+    any_flags: [has_children, pregnant]
+  requirements:
+    - Identified as poor through the DSWD's standardized targeting system (Listahanan)
+    - Children enrolled in school / compliance with health conditions
+  how_to_claim:
+    - Selection is through DSWD targeting; coordinate with the DSWD/municipal link
+    - Comply with the education and health conditions to keep receiving grants
+  where_to_apply: "DSWD"
+  lesser_known: false
+
+- id: octogenarian-centenarian-cash-gift
+  name: Octogenarian, Nonagenarian and Centenarian Cash Gift
+  short_name: Centenarian Cash Gift
+  category: social_welfare
+  description: >
+    Filipino senior citizens receive a cash gift at each milestone birthday —
+    80th, 85th, 90th and 95th — and a larger gift upon turning 100, whether
+    residing in the Philippines or abroad. This expanded the older Centenarians
+    Act, which previously rewarded only those reaching 100.
+  benefit_value: "₱10,000 at ages 80, 85, 90 and 95; ₱100,000 at age 100."
+  legal_basis:
+    law: RA 11982
+    title: Expanded Centenarians Act
+    year: 2024
+    citation: "amends RA 10868 (Centenarians Act of 2016)"
+    effective_date: "2024-02-26"
+    status: in_force
+    amends: "RA 10868"
+    source_url: "https://www.officialgazette.gov.ph/2024/02/26/republic-act-no-11982/"
+    last_verified: "2026-06-13"
+  eligibility:
+    min_age: 80
+  requirements:
+    - Proof of age / birth (PSA birth certificate or equivalent)
+    - Filipino citizenship; claim filed for the relevant milestone birthday
+  how_to_claim:
+    - Coordinate with the National Commission of Senior Citizens (NCSC) / your LGU and OSCA
+    - Submit proof of age and identity to claim the milestone cash gift
+  where_to_apply: "National Commission of Senior Citizens (NCSC) / LGU / OSCA"
+  lesser_known: true
+  notes: "The milestone gifts at 80/85/90/95 are new under RA 11982 (2024) and widely unknown."
+
+- id: owwa-member-benefits
+  name: OWWA Welfare Benefits for OFWs
+  short_name: OWWA Benefits
+  category: employment
+  description: >
+    Member overseas Filipino workers and their families are entitled to a range
+    of welfare programs: repatriation assistance, death and disability benefits,
+    health care, education and skills/scholarship programs, livelihood and
+    reintegration support, and calamity/emergency assistance.
+  benefit_value: >
+    Repatriation, death/disability benefits, scholarships, livelihood and
+    reintegration assistance for active OWWA members and dependents.
+  legal_basis:
+    law: RA 10801
+    title: Overseas Workers Welfare Administration (OWWA) Act
+    year: 2016
+    citation: "Membership via US$25 contribution, active until contract end or 2 years"
+    effective_date: "2016-05-10"
+    status: in_force
+    source_url: "https://www.officialgazette.gov.ph/2016/05/10/republic-act-no-10801/"
+    last_verified: "2026-06-13"
+  eligibility:
+    employment_statuses: [ofw]
+  requirements:
+    - Active OWWA membership (US$25 contribution per contract)
+    - Documents specific to the program availed (e.g. death certificate, enrolment records)
+  how_to_claim:
+    - Ensure OWWA membership is active (enroll at POEA/MWO processing or OWWA office)
+    - Apply for the specific program at an OWWA regional welfare office or Migrant Workers Office abroad
+  where_to_apply: "Overseas Workers Welfare Administration (OWWA)"
+  lesser_known: true
+
+- id: agrarian-debt-condonation
+  name: Agrarian Debt Condonation and Free Land Title
+  short_name: New Agrarian Emancipation
+  category: agriculture
+  description: >
+    Unpaid principal, interest, penalties and surcharges on land awarded to
+    agrarian reform beneficiaries under CARP are condoned, the awarded land is
+    fully emancipated, and beneficiaries are exempted from estate tax and
+    automatically registered for agricultural support services.
+  benefit_value: >
+    Full condonation of agrarian land debt (~₱57.5B for 610,054 beneficiaries) +
+    estate-tax exemption + RSBSA registration for support services.
+  legal_basis:
+    law: RA 11953
+    title: New Agrarian Emancipation Act
+    year: 2023
+    citation: "condones amortizations on CARP-awarded lands"
+    effective_date: "2023-07-24"
+    status: in_force
+    source_url: "https://www.officialgazette.gov.ph/2023/07/07/republic-act-no-11953/"
+    last_verified: "2026-06-13"
+  eligibility:
+    occupations: [farmer]
+    required_flags: [agrarian_reform_beneficiary]
+  requirements:
+    - Be an agrarian reform beneficiary with land awarded under CARP/CARPER
+  how_to_claim:
+    - Coordinate with the Department of Agrarian Reform (DAR) condonation desks
+    - Receive the certificate of condonation / updated e-Title; no need to pay outstanding amortizations
+  where_to_apply: "Department of Agrarian Reform (DAR)"
+  lesser_known: true
+  notes: "Beneficiaries no longer need to pay decades-old land amortizations."
+
+- id: rice-farmer-rcef-support
+  name: Rice Competitiveness Enhancement Fund (RCEF) Support
+  short_name: RCEF (Rice Fund)
+  category: agriculture
+  description: >
+    Rice farmers receive free certified inbred seeds, access to farm machinery
+    and equipment, low-interest credit, and training/extension services funded by
+    tariffs collected on imported rice.
+  benefit_value: >
+    Free certified seeds, farm machinery, expanded credit, and extension/training
+    for rice farmers.
+  legal_basis:
+    law: RA 11203
+    title: Rice Tariffication Law
+    year: 2019
+    citation: "Sec. 13 (Rice Competitiveness Enhancement Fund)"
+    effective_date: "2019-03-05"
+    status: amended
+    source_url: "https://www.da.gov.ph/understanding-the-rice-tariffication-law-rtl-or-ra-11203-and-its-ramifications/"
+    last_verified: "2026-06-13"
+    amendments:
+      - law: RA 12078
+        year: 2024
+        summary: "Extended RCEF to 2031 and raised the annual fund from ₱10B to ₱30B."
+  eligibility:
+    occupations: [farmer]
+  requirements:
+    - Be a rice farmer registered in the Registry System for Basic Sectors in Agriculture (RSBSA)
+    - Membership in a registered farmers' association/cooperative for some components
+  how_to_claim:
+    - Register in the RSBSA through your municipal agriculture office
+    - Coordinate with PhilRice (seeds), PhilMech (machinery), and LandBank/DBP (credit) for each component
+  where_to_apply: "Department of Agriculture (PhilRice, PhilMech, LandBank/DBP)"
+  lesser_known: true
+
+- id: sagip-saka-enterprise
+  name: Sagip Saka Farmers and Fisherfolk Enterprise Support
+  short_name: Sagip Saka
+  category: agriculture
+  description: >
+    Accredited farmers' and fisherfolk enterprises get integrated support —
+    extension services, inputs and equipment, credit, crop insurance, market
+    access — plus tax incentives and exemption from the Procurement Law so
+    government can buy their produce directly.
+  benefit_value: >
+    Enterprise development support, tax incentives, and direct government
+    purchase of produce for accredited farmers/fisherfolk enterprises.
+  legal_basis:
+    law: RA 11321
+    title: Sagip Saka Act
+    year: 2019
+    citation: "Farmers and Fisherfolk Enterprise Development Program"
+    effective_date: "2019-04-17"
+    status: in_force
+    source_url: "https://lawphil.net/statutes/repacts/ra2019/ra_11321_2019.html"
+    last_verified: "2026-06-13"
+  eligibility:
+    occupations: [farmer, fisherfolk]
+  requirements:
+    - Accreditation as a farmer/fisherfolk enterprise or cooperative with the DA
+  how_to_claim:
+    - Apply for accreditation with the Department of Agriculture
+    - Access support services and offer produce to government agencies under direct-purchase rules
+  where_to_apply: "Department of Agriculture (DA)"
+  lesser_known: true
+
+- id: public-health-worker-benefits
+  name: Magna Carta of Public Health Workers Benefits
+  short_name: Public Health Worker Magna Carta
+  category: employment
+  description: >
+    Government health workers — including nurses, doctors, midwives and
+    medical technologists — are entitled to a package of allowances and premiums
+    on top of salary: hazard pay, subsistence and laundry allowances, longevity
+    pay, night shift differential, and remote-assignment allowance.
+  benefit_value: >
+    Hazard pay, subsistence and laundry allowances, longevity pay, night-shift
+    differential, and remote-assignment allowance for public health workers.
+  legal_basis:
+    law: RA 7305
+    title: Magna Carta of Public Health Workers
+    year: 1992
+    citation: "Secs. 19-22 (allowances and benefits)"
+    effective_date: "1992-03-26"
+    status: in_force
+    source_url: "https://lawphil.net/statutes/repacts/ra1992/ra_7305_1992.html"
+    last_verified: "2026-06-13"
+  eligibility:
+    occupations: [health_worker]
+    employment_statuses: [employed]
+  requirements:
+    - Employment as a public-sector health worker (national or LGU health facility)
+    - Hazard pay requires work exposing you to risk for ≥50% of working hours (per DOH)
+  how_to_claim:
+    - Allowances are administered by your employing government health facility/LGU
+    - Coordinate with HR/the DOH for correct grant and computation
+  where_to_apply: "Employing government health facility / DOH"
+  lesser_known: true
+  notes: "Nurses and other public health workers are frequently underpaid these statutory allowances."
+
+- id: public-school-teacher-benefits
+  name: Magna Carta for Public School Teachers Benefits
+  short_name: Teacher Magna Carta
+  category: employment
+  description: >
+    Public school teachers are entitled to a special hardship allowance, study
+    leave of up to one year at 60-65% of salary after seven years of service,
+    indefinite sick leave for work-related illness, free annual medical
+    examination, and cost-of-living allowances.
+  benefit_value: >
+    Special hardship allowance, paid study leave (up to 1 year at ~60-65% salary),
+    indefinite sick leave, and free medical examination.
+  legal_basis:
+    law: RA 4670
+    title: The Magna Carta for Public School Teachers
+    year: 1966
+    citation: "Secs. 19, 24, 25 (allowance, study leave, sick leave)"
+    effective_date: "1966-06-18"
+    status: in_force
+    source_url: "https://lawphil.net/statutes/repacts/ra1966/ra_4670_1966.html"
+    last_verified: "2026-06-13"
+  eligibility:
+    occupations: [teacher]
+    employment_statuses: [employed]
+  requirements:
+    - Employment as a public school teacher
+    - Study leave requires at least 7 years of continuous service
+  how_to_claim:
+    - File study/sick leave and allowance claims through your school division / DepEd
+  where_to_apply: "Department of Education (DepEd) / school division office"
+  lesser_known: true
+
+- id: dost-st-scholarship
+  name: DOST Science and Technology Undergraduate Scholarship
+  short_name: DOST-SEI Scholarship
+  category: education
+  description: >
+    A full undergraduate scholarship for talented students from families below
+    the income threshold who pursue priority degrees in the basic sciences,
+    engineering, applied sciences, and science/math teaching.
+  benefit_value: >
+    Tuition, monthly living and book allowances, and other stipends for a 4-5
+    year S&T degree.
+  legal_basis:
+    law: RA 7687
+    title: Science and Technology Scholarship Act of 1994
+    year: 1994
+    effective_date: "1994"
+    status: in_force
+    source_url: "https://lawphil.net/statutes/repacts/ra1994/ra_7687_1994.html"
+    last_verified: "2026-06-13"
+  eligibility:
+    required_flags: [student]
+    any_flags: [indigent, student]
+  requirements:
+    - Graduating senior high / incoming college student in good standing
+    - Family income within the program's threshold
+    - Pursue a priority S&T course; pass the DOST-SEI scholarship examination
+  how_to_claim:
+    - Apply for and pass the DOST-SEI undergraduate scholarship exam
+    - Enrol in a priority S&T program at an identified institution
+  where_to_apply: "DOST - Science Education Institute (DOST-SEI)"
+  lesser_known: true
+  notes: "Open to students from both public and private senior high schools."
+
+- id: shs-voucher
+  name: Senior High School Voucher Program
+  short_name: SHS Voucher
+  category: education
+  description: >
+    A government subsidy that lets qualified Grade 10 completers enrol in Senior
+    High School at participating private schools (or non-DepEd public schools)
+    at little to no cost, under the GASTPE program.
+  benefit_value: "Voucher subsidy covering most/all of private senior high school fees."
+  legal_basis:
+    law: RA 10533
+    title: Enhanced Basic Education Act of 2013
+    year: 2013
+    citation: "extends E-GASTPE benefits (RA 8545) to Grades 11-12"
+    effective_date: "2013-05-15"
+    status: in_force
+    source_url: "https://www.officialgazette.gov.ph/2013/05/15/republic-act-no-10533/"
+    last_verified: "2026-06-13"
+  eligibility:
+    required_flags: [student]
+    max_age: 21
+  requirements:
+    - Grade 10 completer proceeding to Senior High School
+    - Public Grade 10 completers qualify automatically; private completers subject to guidelines
+  how_to_claim:
+    - Apply through the PEAC/DepEd Online Voucher Application Portal
+    - Use the voucher to enrol at a participating SHS
+  where_to_apply: "DepEd / PEAC (Private Education Assistance Committee)"
+  lesser_known: true

@@ -1,0 +1,6 @@
+# Runtime dependencies for the deployed API (Vercel reads this for the
+# Python serverless function). Keep this minimal — see requirements-dev.txt
+# for local dev + the ingestion pipeline.
+fastapi==0.111.0
+pydantic==2.7.1
+PyYAML==6.0.1
