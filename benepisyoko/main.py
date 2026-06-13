@@ -13,12 +13,17 @@ from fastapi.middleware.cors import CORSMiddleware
 from . import __version__
 from .engine import DISCLAIMER, match_all
 from .models import (
+    AskRequest,
+    AskResponse,
     Benefit,
     Criteria,
     KNOWN_FLAGS,
     KNOWN_OCCUPATIONS,
     QueryResponse,
+    Source,
 )
+from .rag.generator import generate_answer
+from .rag.retriever import search as retrieve
 from .repository import categories, get_benefit, load_benefits
 
 app = FastAPI(
@@ -61,6 +66,7 @@ def root() -> dict:
             "categories": "GET /api/categories",
             "flags": "GET /api/flags",
             "occupations": "GET /api/occupations",
+            "ask": "POST /api/ask",
             "docs": "GET /api/docs",
         },
         "disclaimer": DISCLAIMER,
@@ -112,6 +118,37 @@ def list_flags() -> dict[str, str]:
 def list_occupations() -> dict[str, str]:
     """The recognised lines of work for `criteria.occupation`."""
     return KNOWN_OCCUPATIONS
+
+
+@api.post("/ask", response_model=AskResponse, tags=["rag"])
+def ask(req: AskRequest) -> AskResponse:
+    """Ask a free-text question about Philippine benefits/law.
+
+    Retrieves the most relevant passages from the ingested statute texts and —
+    when an `ANTHROPIC_API_KEY` is configured — returns a Claude-synthesised,
+    citation-grounded answer. Without a key, `answer` is null and the retrieved
+    passages are returned for the caller to read (extractive mode)."""
+    hits = retrieve(req.question, top_k=req.top_k)
+    sources = [
+        Source(
+            law=chunk.law,
+            title=chunk.title,
+            year=chunk.year,
+            section=chunk.section,
+            source_url=chunk.source_url,
+            score=round(score, 4),
+            excerpt=chunk.text[:400] + ("…" if len(chunk.text) > 400 else ""),
+        )
+        for chunk, score in hits
+    ]
+    answer = generate_answer(req.question, [s.model_dump() for s in sources])
+    return AskResponse(
+        question=req.question,
+        answer=answer,
+        llm_used=answer is not None,
+        sources=sources,
+        disclaimer=DISCLAIMER,
+    )
 
 
 app.include_router(api)

@@ -107,12 +107,36 @@ All routes are under the `/api` prefix.
 | Method | Path | Purpose |
 | ------ | ---- | ------- |
 | POST | `/api/match` | Eligibility check from criteria → `eligible` + `potential` |
+| POST | `/api/ask` | Free-text Q&A grounded in the ingested statute texts (RAG) |
 | GET | `/api/benefits` | Browse the corpus (filter by `category`, `lesser_known`) |
 | GET | `/api/benefits/{id}` | One benefit's full detail |
 | GET | `/api/categories` | Available categories |
 | GET | `/api/flags` | Recognised special-category flags for `criteria.flags` |
 | GET | `/api/occupations` | Recognised lines of work for `criteria.occupation` |
 | GET | `/api/docs` | Interactive Swagger docs |
+
+### Ask the law (RAG)
+
+`POST /api/ask` answers a plain-language question from the **actual Republic Act
+texts** ingested by the pipeline, with citations:
+
+```bash
+curl -s http://127.0.0.1:8000/api/ask -H 'Content-Type: application/json' \
+  -d '{"question":"How many days of paid maternity leave am I entitled to?"}' | jq
+```
+
+- **Retrieval** is a dependency-free TF-IDF index over the statute chunks
+  ([benepisyoko/rag/](benepisyoko/rag/)) — it always works, needs no API key, and
+  runs inside the serverless function.
+- **Generation** is optional: set `ANTHROPIC_API_KEY` and the endpoint returns a
+  Claude-synthesised (`claude-opus-4-8`) answer grounded strictly in the
+  retrieved passages, with `[n]` + RA/section citations. Without a key it runs in
+  **extractive mode** — `answer` is `null` and the relevant passages are returned
+  for the caller to read. The frontend's "Ask the law" box uses this endpoint.
+
+Each benefit's `legal_basis` also carries `authors` — the principal author(s) of
+the law, where authorship is clearly documented (e.g. RA 11861 → Sen. Risa
+Hontiveros). Surfaced on the benefit card and in the API.
 
 To answer *"what laws help farmers?"*, send just `{"occupation": "farmer"}` to
 `/api/match` — the eligible list returns the farmer-specific programs (free
@@ -195,6 +219,10 @@ benepisyoko/         Python backend package
     laws/            ingested full statute text + manifest.json
 api/
   index.py           Vercel serverless entry (re-exports the FastAPI app)
+  rag/               retrieval-augmented Q&A over the ingested statute texts
+    chunker.py       splits stored laws into section-level passages
+    retriever.py     dependency-free TF-IDF index (no key, runs in the function)
+    generator.py     optional Claude answer synthesis (env-gated)
 ingest/              law-text ingestion pipeline (local/build-time tool)
   sources.py · registry.py · fetcher.py · parser.py · pipeline.py · cli.py
 src/app/             Next.js frontend (App Router)
@@ -211,6 +239,7 @@ requirements-dev.txt  + uvicorn, pytest, httpx, bs4, lxml (local + ingestion)
 ## Roadmap
 
 - Expand the corpus (LGU-specific benefits, GSIS, veterans, PWD/IP-specific laws).
-- Optional RAG layer over the ingested RA texts for the long tail of provisions.
+- Swap the TF-IDF retriever for embeddings (e.g. Voyage) for semantic recall.
 - Ingest implementing rules (IRRs), where many operative amounts actually live.
+- Complete principal-author attribution across the remaining laws.
 - Localisation (Filipino) of descriptions and claim steps.

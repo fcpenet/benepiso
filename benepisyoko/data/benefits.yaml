@@ -113,6 +113,7 @@
     citation: "amends RA 8972 (2000); discount/VAT-exemption applies to solo parents earning ≤₱250,000/year"
     effective_date: "2022-11-01"
     status: in_force
+    authors: ["Sen. Risa Hontiveros"]
     amends: "RA 8972"
     source_url: "https://lawphil.net/statutes/repacts/ra2022/ra_11861_2022.html"
     last_verified: "2026-06-13"
@@ -265,6 +266,7 @@
     citation: "Covers NBI/police/barangay clearances, PSA birth/marriage, TOR, TIN, PhilHealth ID, etc."
     effective_date: "2019-04-10"
     status: in_force
+    authors: ["Sen. Joel Villanueva"]
     source_url: "https://www.officialgazette.gov.ph/2019/04/10/republic-act-no-11261/"
     last_verified: "2026-06-13"
   eligibility:
@@ -292,6 +294,11 @@
     law: RA 10931
     title: Universal Access to Quality Tertiary Education Act
     year: 2017
+    effective_date: "2017-08-03"
+    status: in_force
+    authors: ["Sen. Bam Aquino", "Sen. Ralph Recto"]
+    source_url: "https://www.officialgazette.gov.ph/2017/08/03/republic-act-no-10931/"
+    last_verified: "2026-06-14"
   eligibility:
     required_flags: [student]
   requirements:
@@ -315,6 +322,11 @@
     title: Universal Access to Quality Tertiary Education Act
     year: 2017
     citation: "TES program"
+    effective_date: "2017-08-03"
+    status: in_force
+    authors: ["Sen. Bam Aquino", "Sen. Ralph Recto"]
+    source_url: "https://www.officialgazette.gov.ph/2017/08/03/republic-act-no-10931/"
+    last_verified: "2026-06-14"
   eligibility:
     required_flags: [student]
     any_flags: [indigent, student]
@@ -340,6 +352,11 @@
     law: RA 11223
     title: Universal Health Care Act
     year: 2019
+    effective_date: "2019-02-20"
+    status: in_force
+    authors: ["Sen. JV Ejercito"]
+    source_url: "https://www.officialgazette.gov.ph/2019/02/20/republic-act-no-11223/"
+    last_verified: "2026-06-14"
   eligibility: {}
   requirements:
     - PhilHealth Identification Number (PIN) — issued automatically; can be retrieved
@@ -362,6 +379,11 @@
     title: Universal Health Care Act
     year: 2019
     citation: "Konsulta package"
+    effective_date: "2019-02-20"
+    status: in_force
+    authors: ["Sen. JV Ejercito"]
+    source_url: "https://www.officialgazette.gov.ph/2019/02/20/republic-act-no-11223/"
+    last_verified: "2026-06-14"
   eligibility: {}
   requirements:
     - PhilHealth membership (automatic)
@@ -385,6 +407,11 @@
     law: RA 11463
     title: Malasakit Centers Act of 2019
     year: 2019
+    effective_date: "2019-12-03"
+    status: in_force
+    authors: ["Sen. Bong Go"]
+    source_url: "https://www.officialgazette.gov.ph/2019/12/03/republic-act-no-11463/"
+    last_verified: "2026-06-14"
   eligibility:
     any_flags: [indigent]
   requirements:
@@ -514,6 +541,7 @@
     citation: "amends RA 10868 (Centenarians Act of 2016)"
     effective_date: "2024-02-26"
     status: in_force
+    authors: ["Sen. Bong Go"]
     amends: "RA 10868"
     source_url: "https://www.officialgazette.gov.ph/2024/02/26/republic-act-no-11982/"
     last_verified: "2026-06-13"
@@ -648,6 +676,7 @@
     citation: "Farmers and Fisherfolk Enterprise Development Program"
     effective_date: "2019-04-17"
     status: in_force
+    authors: ["Sen. Kiko Pangilinan"]
     source_url: "https://lawphil.net/statutes/repacts/ra2019/ra_11321_2019.html"
     last_verified: "2026-06-13"
   eligibility:

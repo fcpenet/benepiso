@@ -10,6 +10,7 @@ type LegalBasis = {
   effective_date?: string | null;
   status?: string;
   source_url?: string | null;
+  authors?: string[];
 };
 
 type Benefit = {
@@ -41,6 +42,24 @@ type QueryResponse = {
   disclaimer: string;
 };
 
+type AskSource = {
+  law: string;
+  title: string;
+  year: number;
+  section: string;
+  source_url?: string | null;
+  score: number;
+  excerpt: string;
+};
+
+type AskResponse = {
+  question: string;
+  answer?: string | null;
+  llm_used: boolean;
+  sources: AskSource[];
+  disclaimer: string;
+};
+
 const GENDERS = ['', 'female', 'male'];
 const EMPLOYMENT = [
   '',
@@ -69,6 +88,10 @@ export default function Home() {
   const [result, setResult] = useState<QueryResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const [question, setQuestion] = useState('');
+  const [asking, setAsking] = useState(false);
+  const [askResult, setAskResult] = useState<AskResponse | null>(null);
 
   useEffect(() => {
     Promise.all([
@@ -123,6 +146,28 @@ export default function Home() {
       );
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function onAsk(e: React.FormEvent) {
+    e.preventDefault();
+    if (question.trim().length < 3) return;
+    setAsking(true);
+    setAskResult(null);
+    try {
+      const res = await fetch('/api/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question: question.trim(), top_k: 5 }),
+      });
+      if (!res.ok) throw new Error(`API returned ${res.status}`);
+      setAskResult(await res.json());
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : 'Something went wrong calling the API.'
+      );
+    } finally {
+      setAsking(false);
     }
   }
 
@@ -254,6 +299,58 @@ export default function Home() {
           <p className="disclaimer">{result.disclaimer}</p>
         </section>
       )}
+
+      <section className="ask">
+        <h2>Ask the law directly</h2>
+        <p className="subtitle">
+          Ask a question in plain language — answers are drawn from the actual
+          Republic Act texts, with citations.
+        </p>
+        <form className="ask-form" onSubmit={onAsk}>
+          <input
+            type="text"
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+            placeholder="e.g. How many days of paid maternity leave am I entitled to?"
+          />
+          <button type="submit" disabled={asking}>
+            {asking ? 'Searching…' : 'Ask'}
+          </button>
+        </form>
+
+        {askResult && (
+          <div className="ask-result">
+            {askResult.answer ? (
+              <div className="answer">{askResult.answer}</div>
+            ) : (
+              <p className="subtitle">
+                Showing the most relevant statute passages. (Set an
+                <code> ANTHROPIC_API_KEY</code> on the server for a synthesised,
+                cited answer.)
+              </p>
+            )}
+            <div className="passages">
+              {askResult.sources.map((s, i) => (
+                <article className="passage" key={i}>
+                  <div className="passage-head">
+                    {s.source_url ? (
+                      <a href={s.source_url} target="_blank" rel="noreferrer">
+                        {s.law} — {s.section}
+                      </a>
+                    ) : (
+                      <span>
+                        {s.law} — {s.section}
+                      </span>
+                    )}
+                    <span className="muted">{s.title} ({s.year})</span>
+                  </div>
+                  <p className="excerpt">{s.excerpt}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        )}
+      </section>
     </main>
   );
 }
@@ -355,6 +452,11 @@ function BenefitCard({
         ) : (
           <span>
             {lb.law} — {lb.title} ({lb.year})
+          </span>
+        )}
+        {lb.authors && lb.authors.length > 0 && (
+          <span className="authors">
+            Principal author{lb.authors.length > 1 ? 's' : ''}: {lb.authors.join(', ')}
           </span>
         )}
       </footer>

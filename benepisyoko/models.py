@@ -130,6 +130,10 @@ class LegalBasis(BaseModel):
     status: LawStatus = Field(
         LawStatus.in_force, description="Current standing of this legal basis."
     )
+    authors: list[str] = Field(
+        default_factory=list,
+        description="Principal author(s)/sponsor(s), e.g. ['Sen. Risa Hontiveros'].",
+    )
     amends: Optional[str] = Field(
         None, description="Earlier law this one amends/repeals, e.g. 'RA 8972'."
     )
@@ -218,5 +222,47 @@ class QueryResponse(BaseModel):
     potential: list[MatchResult] = Field(
         default_factory=list,
         description="Not disqualified — would qualify on meeting/declaring the missing items.",
+    )
+    disclaimer: str
+
+
+# --- Retrieval-augmented Q&A over the ingested statute texts ------------------
+
+
+class AskRequest(BaseModel):
+    question: str = Field(..., min_length=3, description="A question about PH benefits/law.")
+    top_k: int = Field(5, ge=1, le=12, description="How many statute passages to retrieve.")
+
+    model_config = {
+        "json_schema_extra": {
+            "example": {
+                "question": "How many days of paid maternity leave am I entitled to?",
+                "top_k": 5,
+            }
+        }
+    }
+
+
+class Source(BaseModel):
+    law: str
+    title: str
+    year: int
+    section: str
+    source_url: Optional[str] = None
+    score: float = Field(..., description="Relevance score (higher = closer match).")
+    excerpt: str
+
+
+class AskResponse(BaseModel):
+    question: str
+    answer: Optional[str] = Field(
+        None,
+        description="Cited answer synthesised from the passages (null in extractive mode).",
+    )
+    llm_used: bool = Field(
+        ..., description="Whether a Claude-generated answer was produced."
+    )
+    sources: list[Source] = Field(
+        default_factory=list, description="Retrieved statute passages, most relevant first."
     )
     disclaimer: str
