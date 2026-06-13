@@ -193,6 +193,43 @@ the curated eligibility rules against statutory language.
 > (IRRs)*, where many operative amounts/procedures actually live — those remain
 > a manual verification step for now.
 
+## Discovering benefits hidden in other laws (discovery pipeline)
+
+The ingestion pipeline only *grounds* laws the corpus already cites — it can't
+find new ones. The **discovery pipeline** ([discovery/](discovery/)) inverts that:
+it enumerates Republic Acts broadly from LawPhil's year indexes, fetches and
+parses each (reusing the ingestion fetcher/parser), and **scores the text for
+benefit-granting language** to surface laws worth encoding into the corpus.
+
+```bash
+python -m discovery.cli --years 2019 --min-score 6        # scan all of 2019
+python -m discovery.cli --years 2015-2019 --min-score 6   # a range of years
+python -m discovery.cli --years 2022 --limit 10           # bounded trial
+python -m discovery.cli --years 2019 --include-corpus      # include known laws
+```
+
+How it works:
+
+- **Enumerate** ([discovery/sources.py](discovery/sources.py)) — harvest every
+  `ra_<n>_<year>.html` link from the year's index (~290 RAs/year).
+- **Score** ([discovery/scorer.py](discovery/scorer.py)) — weighted signal
+  phrases ("shall be entitled to", "% discount", "exempt from", "social
+  pension", "scholarship"…), beneficiary cues (senior, PWD, solo parent, farmer,
+  worker, student…), and a strong dampener for structural titles (charters,
+  reorgs, renamers) that carry benefit-like boilerplate without granting a
+  benefit. Validated against the ingested corpus: real benefit laws score 5–44
+  (RA 9994 senior citizens = 44), SUC charters fall to ~2.7.
+- **Rank + report** ([discovery/pipeline.py](discovery/pipeline.py)) — writes
+  `discovery/candidates.json` (sorted, with signals + a representative snippet),
+  flagging which candidates are already `in_corpus`. Fetched texts cache under
+  `discovery/cache/` (git-ignored) so threshold sweeps don't re-hit the network.
+
+This is **recall-oriented triage, not a classifier** — expect false positives,
+and review the high-scoring candidates by hand before encoding them as benefits.
+The workflow: run discovery → review `candidates.json` → add a worthwhile law to
+`benefits.yaml` → `python -m ingest.cli --all` to ground it → it flows into
+`/api/match` and `/api/ask` automatically.
+
 ## Adding a benefit
 
 Append an entry to `benepisyoko/data/benefits.yaml` following the existing shape. No code
@@ -223,8 +260,10 @@ api/
     chunker.py       splits stored laws into section-level passages
     retriever.py     dependency-free TF-IDF index (no key, runs in the function)
     generator.py     optional Claude answer synthesis (env-gated)
-ingest/              law-text ingestion pipeline (local/build-time tool)
+ingest/              law-text ingestion pipeline (corpus-driven grounding)
   sources.py · registry.py · fetcher.py · parser.py · pipeline.py · cli.py
+discovery/           benefit-discovery pipeline (finds new candidate laws)
+  sources.py · scorer.py · pipeline.py · cli.py
 src/app/             Next.js frontend (App Router)
   page.tsx           the form + results UI (client component)
   layout.tsx · globals.css
@@ -238,7 +277,9 @@ requirements-dev.txt  + uvicorn, pytest, httpx, bs4, lxml (local + ingestion)
 
 ## Roadmap
 
-- Expand the corpus (LGU-specific benefits, GSIS, veterans, PWD/IP-specific laws).
+- Run the discovery pipeline across more years and encode the strongest
+  candidates; add LLM-assisted extraction of eligibility rules from candidate
+  texts (with human review) to speed up corpus growth.
 - Swap the TF-IDF retriever for embeddings (e.g. Voyage) for semantic recall.
 - Ingest implementing rules (IRRs), where many operative amounts actually live.
 - Complete principal-author attribution across the remaining laws.
